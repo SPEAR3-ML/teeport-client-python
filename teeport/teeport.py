@@ -99,14 +99,14 @@ class Teeport(NodeMixin):
         self.optimizer = optimizer
         return True
         
-    def run_evaluator(self, evaluate, name=None, private=False, auto_start=True,
+    def run_evaluator(self, evaluate, class_id=None, name=None, configs=None, private=False, auto_start=True,
                       connected_callback=None, finished_callback=None):
         if self.evaluator:
             if self.evaluator.task:
                 print('teeport: please stop the current evaluator first')
                 return
         
-        evaluator = Evaluator(self.uri, name, private)
+        evaluator = Evaluator(self.uri, class_id, name, configs, private)
         evaluator.set_evaluate(evaluate)
         evaluator.connected_callback = connected_callback
         evaluator.finished_callback = finished_callback
@@ -160,7 +160,7 @@ class Teeport(NodeMixin):
         else:
             return self._get_optimize_local(optimize)
     
-    def use_evaluator(self, evaluate=None, name=None):
+    def use_evaluator(self, evaluate=None, class_id=None, name=None, configs=None):
         if self.evaluator:
             if self.evaluator.task:
                 print('teeport: please stop the current evaluator first')
@@ -176,7 +176,6 @@ class Teeport(NodeMixin):
                 self.link()
                 client = self.wildcard.check_client(evaluate)
                 self.unlink()
-            
             try:
                 client_type = client['type']
             except:
@@ -188,14 +187,14 @@ class Teeport(NodeMixin):
                     return None
                 
                 # init an evaluator, this one will not run
-                evaluator = Evaluator(self.uri, client['name'], local=False)
+                evaluator = Evaluator(self.uri, client['classId'], client['name'], client['configs'], local=False)
                 evaluator.id = client['id']
                 self.evaluator = evaluator
-                evaluate_w = self._get_evaluate_remote(evaluator.id)
+                evaluate_w = self._get_evaluate_remote(evaluator.id, client['configs'])
                 self.evaluator.evaluate = evaluate_w
                 return evaluate_w
         else:
-            return self._get_evaluate_local(evaluate)
+            return self._get_evaluate_local(evaluate, class_id, name, configs)
     
     def use_processor(self, process=None, name=None):
         if process is None:
@@ -229,7 +228,7 @@ class Teeport(NodeMixin):
             return
         return connected
     
-    def _init_evaluator_private(self, evaluate):
+    def _init_evaluator_private(self, evaluate, class_id=None, name=None, configs=None):
         connected = asyncio.get_event_loop().create_future()
         
         def connected_callback():
@@ -243,7 +242,8 @@ class Teeport(NodeMixin):
             if self.optimizer:
                 self.optimizer.stop()
 
-        success = self.run_evaluator(evaluate, private=True, auto_start=False,
+        success = self.run_evaluator(evaluate, class_id=class_id, name=name, configs=configs,
+                                     private=True, auto_start=False,
                                      connected_callback=connected_callback,
                                      finished_callback=finished_callback)
         if not success:
@@ -252,15 +252,16 @@ class Teeport(NodeMixin):
     
     # this method will only be called when there is a remote evaluator registered
     # but the evaluator is not running
-    def _get_evaluate_remote(self, evaluator_id):
+    def _get_evaluate_remote(self, evaluator_id, configs=None):
         # closure trick
         cache = {
             'count': 0,  # called number
             'opt_task': None,  # get X in optimize
             'eval_task': None  # get Y in evaluate
         }
+        configs_default = configs
         @make_sync
-        async def evaluate_w(X):
+        async def evaluate_w(X, configs=None):
             if cache['eval_task'] and not cache['eval_task'].done():
                 cache['eval_task'].cancel()
                 print('teeport: something goes wrong on evaluation')
@@ -274,12 +275,12 @@ class Teeport(NodeMixin):
                     while True:
                         if not cache['opt_task']:  # first loop
                             cache['opt_task'] = asyncio.get_event_loop().create_future()
-                            Y = func(X)
+                            Y = func(X, configs or configs_default)
                             cache['eval_task'].set_result(Y)
                         else:
                             cache['opt_task'] = asyncio.get_event_loop().create_future()
-                            _X = await cache['opt_task']
-                            Y = func(_X)
+                            _X, _configs = await cache['opt_task']
+                            Y = func(_X, _configs or configs_default)
                             cache['eval_task'].set_result(Y)
 
                 # run optimizer and get the socket id
@@ -312,7 +313,7 @@ class Teeport(NodeMixin):
                 self.wildcard.init_task(optimizer_id, evaluator_id)
             else:
                 if cache['opt_task'] and not cache['opt_task'].done():
-                    cache['opt_task'].set_result(X)
+                    cache['opt_task'].set_result([X, configs])
                 else:
                     print('teeport: something goes wrong on optimization')
                     return
@@ -322,8 +323,8 @@ class Teeport(NodeMixin):
             return Y
         return evaluate_w
     
-    def _get_evaluate_local(self, evaluate):
-        eval_connected = self._init_evaluator_private(evaluate)
+    def _get_evaluate_local(self, evaluate, class_id=None, name=None, configs=None):
+        eval_connected = self._init_evaluator_private(evaluate, class_id, name, configs)
         
         # closure trick
         cache = {
@@ -331,8 +332,9 @@ class Teeport(NodeMixin):
             'opt_task': None,  # get X in optimize
             'eval_task': None  # get Y in evaluate
         }
+        configs_default = configs
         @make_sync
-        async def evaluate_w(X):
+        async def evaluate_w(X, configs=None):
             if cache['eval_task'] and not cache['eval_task'].done():
                 cache['eval_task'].cancel()
                 print('teeport: something goes wrong on evaluation')
@@ -351,12 +353,12 @@ class Teeport(NodeMixin):
                     while True:
                         if not cache['opt_task']:  # first loop
                             cache['opt_task'] = asyncio.get_event_loop().create_future()
-                            Y = func(X)
+                            Y = func(X, configs or configs_default)
                             cache['eval_task'].set_result(Y)
                         else:
                             cache['opt_task'] = asyncio.get_event_loop().create_future()
-                            _X = await cache['opt_task']
-                            Y = func(_X)
+                            _X, _configs = await cache['opt_task']
+                            Y = func(_X, _configs or configs_default)
                             cache['eval_task'].set_result(Y)
 
                 # run the private optimizer
@@ -391,7 +393,7 @@ class Teeport(NodeMixin):
                 self.wildcard.init_task(optimizer_id, evaluator_id)
             else:
                 if cache['opt_task'] and not cache['opt_task'].done():
-                    cache['opt_task'].set_result(X)
+                    cache['opt_task'].set_result([X, configs])
                 else:
                     print('teeport: something goes wrong on optimization')
                     return
@@ -509,4 +511,3 @@ class Teeport(NodeMixin):
                 print(label + treestr.ljust(8))
             else:
                 print(' ' * len(label) + treestr.ljust(8))
-    

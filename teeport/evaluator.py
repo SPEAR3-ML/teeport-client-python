@@ -13,9 +13,11 @@ from opt.utils.helpers import make_async, make_sync
 from .constants import WS_MSG_MAX_SIZE
 
 class Evaluator:
-    def __init__(self, uri, name=None, private=False, local=True):
+    def __init__(self, uri, class_id=None, name=None, configs=None, private=False, local=True):
         self.uri = uri  # platform uri
+        self.class_id = class_id  # problem id
         self.name = name  # evaluator name
+        self.configs = configs  # evaluator configs
         self.private = private # if the evaluator is private (other clients can't use)
         self.local = local  # local or remote evaluator
         self.socket = None  # websocket client
@@ -28,7 +30,9 @@ class Evaluator:
     
     def status(self, width=16):
         print(f'{"uri": <{width}}: {self.uri}')
+        print(f'{"problem id": <{width}}: {self.class_id}')
         print(f'{"name": <{width}}: {self.name}')
+        self.show_configs(f'{"configs": <{width}}: ')
         print(f'{"private": <{width}}: {self.private}')
         print(f'{"local": <{width}}: {self.local}')
         if self.socket:
@@ -57,6 +61,8 @@ class Evaluator:
         
         params = {
             'type': 'evaluator',
+            'classId': self.class_id,
+            'configs': dumps(self.configs),
             'private': self.private
         }
         if self.name:
@@ -91,8 +97,12 @@ class Evaluator:
             self.name = msg['client']['name']
         elif msg['type'] == 'evaluate':
             task_id = msg['taskId']
+            try:
+                configs = msg['configs']
+            except:
+                configs = self.configs
             X = msg['data']
-            Y = await self.evaluate(np.array(X))
+            Y = await self.evaluate(np.array(X), configs)
 
             res = {
                 'type': 'evaluated',
@@ -157,3 +167,10 @@ class Evaluator:
                 
         self.task = asyncio.ensure_future(self.listen())
         self.task.add_done_callback(done_callback)
+
+    def show_configs(self, label=''):
+        for i, line in enumerate(dumps(self.configs, indent=4).split('\n')):
+            if not i:
+                print(label + line)
+            else:
+                print(' ' * len(label) + line)

@@ -140,10 +140,11 @@ class Optimizer:
         elif msg['type'] == 'startTask':
             # create the evaluate function
             @make_sync
-            async def evaluate(X):
+            async def evaluate(X, configs=None):
                 point = {
                     'type': 'evaluate',
-                    'data': X.tolist()
+                    'data': X.tolist(),
+                    'configs': configs
                 }
                 await self.socket.send(dumps(point))
                 
