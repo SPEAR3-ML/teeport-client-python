@@ -13,9 +13,11 @@ from opt.utils.helpers import make_async, make_sync
 from .constants import WS_MSG_MAX_SIZE
 
 class Optimizer:
-    def __init__(self, uri, name=None, private=False, local=True):
+    def __init__(self, uri, class_id=None, name=None, configs=None, private=False, local=True):
         self.uri = uri  # platform uri
+        self.class_id = class_id  # algorithm id
         self.name = name  # optimizer name
+        self.configs = configs  # optimizer configs
         self.private = private # if the optimizer is private (other clients can't use)
         self.local = local  # local or remote optimizer
         self.socket = None  # websocket client
@@ -32,7 +34,9 @@ class Optimizer:
     
     def status(self, width=16):
         print(f'{"uri": <{width}}: {self.uri}')
+        print(f'{"algorithm id": <{width}}: {self.class_id}')
         print(f'{"name": <{width}}: {self.name}')
+        self.show_json(self.configs, f'{"configs": <{width}}: ')
         print(f'{"private": <{width}}: {self.private}')
         print(f'{"local": <{width}}: {self.local}')
         if self.socket:
@@ -54,7 +58,7 @@ class Optimizer:
         else:
             print(f'{"opt task": <{width}}: not running')
         if self.opt_task_info:
-            print(f'{"opt task info": <{width}}: {self.opt_task_info}')
+            self.show_json(self.opt_task_info, f'{"opt task info": <{width}}: ')
         if self.eval_task:
             print(f'{"eval task": <{width}}: running')
         else:
@@ -71,6 +75,8 @@ class Optimizer:
         
         params = {
             'type': 'optimizer',
+            'classId': self.class_id,
+            'configs': dumps(self.configs),
             'private': self.private
         }
         if self.name:
@@ -140,11 +146,10 @@ class Optimizer:
         elif msg['type'] == 'startTask':
             # create the evaluate function
             @make_sync
-            async def evaluate(X, configs=None):
+            async def evaluate(X):
                 point = {
                     'type': 'evaluate',
-                    'data': X.tolist(),
-                    'configs': configs
+                    'data': X.tolist()
                 }
                 await self.socket.send(dumps(point))
                 
@@ -205,7 +210,11 @@ class Optimizer:
                 if self.finished_callback:
                     self.finished_callback()
                         
-            self.opt_task = asyncio.ensure_future(self.optimize(evaluate))
+            try:
+                configs = msg['configs']['optimizer']
+            except:
+                configs = None
+            self.opt_task = asyncio.ensure_future(self.optimize(evaluate, configs=configs))
             self.opt_task.add_done_callback(done_callback)
             
             if self.started_callback:
@@ -269,3 +278,10 @@ class Optimizer:
                 
         self.task = asyncio.ensure_future(self.listen())
         self.task.add_done_callback(done_callback)
+
+    def show_json(self, json, label=''):
+        for i, line in enumerate(dumps(json, indent=4).split('\n')):
+            if not i:
+                print(label + line)
+            else:
+                print(' ' * len(label) + line)

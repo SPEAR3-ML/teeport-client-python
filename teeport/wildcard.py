@@ -76,12 +76,12 @@ class Wildcard:
         return client
     
     @make_sync
-    async def init_task(self, optimizer_id, evaluator_id, task_name=None):
+    async def init_task(self, optimizer_id, evaluator_id, configs=None):
         new_task = {
             'type': 'newTask',
             'optimizerId': optimizer_id,
             'evaluatorId': evaluator_id,
-            'name': task_name
+            'configs': configs
         }
         await self.socket.send(dumps(new_task))
         task_id = await self.wait_for_reply('new_task')

@@ -110,6 +110,9 @@ class Evaluator:
                 'taskId': task_id
             }
             await self.socket.send(dumps(res))
+        elif msg['type'] == 'completeTask':
+            if self.finished_callback:
+                self.finished_callback()
         else:
             print(msg)
     
@@ -168,6 +171,7 @@ class Evaluator:
         self.task = asyncio.ensure_future(self.listen())
         self.task.add_done_callback(done_callback)
 
+    # TODO: change to show_json like in optimizer
     def show_configs(self, label=''):
         for i, line in enumerate(dumps(self.configs, indent=4).split('\n')):
             if not i:
