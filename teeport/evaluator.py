@@ -97,11 +97,14 @@ class Evaluator:
             self.name = msg['client']['name']
         elif msg['type'] == 'evaluate':
             task_id = msg['taskId']
-            configs = self.configs  # make sure configs is never None
+            # make sure configs is not None
             try:
                 configs = msg['configs']
+                if configs is None:  # fallback to the init configs
+                    configs = self.configs
             except:
-                pass
+                configs = self.configs
+
             X = msg['data']
             Y = await self.evaluate(np.array(X), configs)
 
