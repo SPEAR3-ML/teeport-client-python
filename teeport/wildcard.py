@@ -97,6 +97,23 @@ class Wildcard:
             'id': task_id
         }
         await self.socket.send(dumps(start_task))
+
+    @make_sync
+    async def get_tasks(self):
+        get_tasks = {
+            'type': 'getTasks'
+        }
+        await self.socket.send(dumps(get_tasks))
+        tasks = await self.wait_for_reply('get_tasks')
+        return tasks
+
+    @make_sync
+    async def delete_task(self, task_id):
+        delete_task = {
+            'type': 'deleteTask',
+            'id': task_id
+        }
+        await self.socket.send(dumps(delete_task))
     
     async def logic(self, msg):
         msg = loads(msg)
@@ -120,6 +137,11 @@ class Wildcard:
             if self.sub_task and not self.sub_task.done():
                 if self.sub_task.name == 'new_task':
                     self.sub_task.set_result(task_id)
+        elif msg['type'] == 'tasks':
+            tasks = msg['tasks']
+            if self.sub_task and not self.sub_task.done():
+                if self.sub_task.name == 'get_tasks':
+                    self.sub_task.set_result(tasks)
         elif msg['type'] == 'startTask':
             print('wildcard: optimization started')
         elif msg['type'] == 'pauseTask':
