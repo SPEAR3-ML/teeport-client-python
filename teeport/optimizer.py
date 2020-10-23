@@ -81,6 +81,8 @@ class Optimizer:
         }
         if self.name:
             params['name'] = self.name
+        if self.class_id is None:  # python will make None to a string 'None' rather than ignore it
+            del params['classId']  # so we have to remove the value manually for consistence
         query = f'?{urllib.parse.urlencode(params, quote_via=urllib.parse.quote)}'
         self.socket = await websockets.connect(self.uri + query, max_size=WS_MSG_MAX_SIZE)
         self.run()

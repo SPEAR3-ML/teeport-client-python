@@ -67,6 +67,8 @@ class Evaluator:
         }
         if self.name:
             params['name'] = self.name
+        if self.class_id is None:
+            del params['classId']
         query = f'?{urllib.parse.urlencode(params, quote_via=urllib.parse.quote)}'
         self.socket = await websockets.connect(self.uri + query, max_size=WS_MSG_MAX_SIZE)
         self.run()
