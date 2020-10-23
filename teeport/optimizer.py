@@ -9,7 +9,7 @@ import urllib.parse
 import sys
 import traceback
 
-from opt.utils.helpers import make_async, make_sync
+from .utils import make_async, make_sync
 from .constants import WS_MSG_MAX_SIZE
 
 class Optimizer:

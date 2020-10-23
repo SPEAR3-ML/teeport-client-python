@@ -8,7 +8,7 @@ import numpy as np
 from json import dumps, loads
 from anytree import NodeMixin, RenderTree
 
-from opt.utils.helpers import make_async, make_sync
+from .utils import make_async, make_sync
 
 from .optimizer import Optimizer
 from .evaluator import Evaluator
