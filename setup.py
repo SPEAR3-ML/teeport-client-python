@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="teeport",
-    version="0.1.0",
+    version="0.2.0",
     author="Zhe Zhang",
     author_email="zhezhang@slac.stanford.end",
     description="Teeport python client",
@@ -15,8 +15,7 @@ setup(
     install_requires=[
         'numpy',
         'websockets',
-        'anytree',
-        'opt'
+        'anytree'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
