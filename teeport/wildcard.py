@@ -97,6 +97,7 @@ class Wildcard:
             'id': task_id
         }
         await self.socket.send(dumps(start_task))
+        await self.wait_for_reply('wait_until_done')
 
     @make_sync
     async def get_tasks(self):
@@ -147,8 +148,14 @@ class Wildcard:
         elif msg['type'] == 'pauseTask':
             print('wildcard: optimization paused')
         elif msg['type'] == 'stopTask':
+            if self.sub_task and not self.sub_task.done():
+                if self.sub_task.name == 'wait_until_done':
+                    self.sub_task.set_result(True)
             print('wildcard: optimization cancelled')
         elif msg['type'] == 'completeTask':
+            if self.sub_task and not self.sub_task.done():
+                if self.sub_task.name == 'wait_until_done':
+                    self.sub_task.set_result(True)
             print('wildcard: optimization completed')
         else:
             print(msg)
