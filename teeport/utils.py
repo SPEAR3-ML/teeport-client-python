@@ -17,7 +17,13 @@ def make_async(func):
 def make_sync(func):
     if inspect.iscoroutinefunction(func):
         def func_d(*args, **kwargs):
-            return asyncio.get_event_loop().run_until_complete(func(*args, **kwargs))
+            try:
+                res = asyncio.get_event_loop().run_until_complete(func(*args, **kwargs))
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                res = asyncio.get_event_loop().run_until_complete(func(*args, **kwargs))
+            return res
         
         return func_d
     else:
