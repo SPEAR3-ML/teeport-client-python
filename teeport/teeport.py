@@ -464,6 +464,7 @@ class Teeport(NodeMixin):
             # create and start the task
             self.link()
             self.wildcard.init_task(optimizer_id, evaluator_id, configs_all)
+            await self.wildcard.task
         return optimize_w
     
     def _get_optimize_local(self, optimize, class_id, name, configs):
@@ -527,6 +528,7 @@ class Teeport(NodeMixin):
             # create and start the task
             self.link()
             self.wildcard.init_task(optimizer_id, evaluator_id, configs_all)
+            await self.wildcard.task
         return optimize_w
         
     def stop(self, recursive=True):
