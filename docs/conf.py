@@ -29,8 +29,12 @@ author = 'Zhe Zhang'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'autoapi.extension'
 ]
+
+# Set up autoapi
+autoapi_dirs = ['../teeport']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

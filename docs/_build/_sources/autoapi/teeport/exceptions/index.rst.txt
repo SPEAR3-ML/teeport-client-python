@@ -1,0 +1,30 @@
+:mod:`teeport.exceptions`
+=========================
+
+.. py:module:: teeport.exceptions
+
+
+Module Contents
+---------------
+
+.. py:exception:: TaskStopped
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:exception:: OptimizerStopped
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:exception:: Disconnected
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+

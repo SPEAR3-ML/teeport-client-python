@@ -1,0 +1,54 @@
+:mod:`teeport.optimizer`
+========================
+
+.. py:module:: teeport.optimizer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   teeport.optimizer.Optimizer
+
+
+
+.. py:class:: Optimizer(uri, class_id=None, name=None, configs=None, private=False, local=True)
+
+   .. method:: status(self, width=16)
+
+
+   .. method:: start(self)
+      :async:
+
+
+   .. method:: stop(self)
+
+
+   .. method:: _cancel_opt_task(self)
+
+
+   .. method:: cancel_optimize(self)
+
+
+   .. method:: set_optimize(self, optimize)
+
+
+   .. method:: logic(self, msg)
+      :async:
+
+
+   .. method:: listen(self)
+      :async:
+
+
+   .. method:: run(self)
+
+
+   .. method:: show_json(self, json, label='')
+
+
+

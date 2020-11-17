@@ -1,0 +1,62 @@
+:mod:`teeport.wildcard`
+=======================
+
+.. py:module:: teeport.wildcard
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   teeport.wildcard.Wildcard
+
+
+
+.. py:class:: Wildcard(uri, name=None)
+
+   .. method:: status(self, width=16)
+
+
+   .. method:: start(self)
+      :async:
+
+
+   .. method:: stop(self)
+
+
+   .. method:: wait_for_reply(self, task_name)
+      :async:
+
+
+   .. method:: check_client(self, client_id)
+      :async:
+
+
+   .. method:: init_task(self, optimizer_id, evaluator_id, configs=None)
+      :async:
+
+
+   .. method:: get_tasks(self)
+      :async:
+
+
+   .. method:: delete_task(self, task_id)
+      :async:
+
+
+   .. method:: logic(self, msg)
+      :async:
+
+
+   .. method:: listen(self)
+      :async:
+
+
+   .. method:: run(self)
+
+
+

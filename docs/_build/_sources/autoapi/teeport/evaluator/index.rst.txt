@@ -1,0 +1,48 @@
+:mod:`teeport.evaluator`
+========================
+
+.. py:module:: teeport.evaluator
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   teeport.evaluator.Evaluator
+
+
+
+.. py:class:: Evaluator(uri, class_id=None, name=None, configs=None, private=False, local=True)
+
+   .. method:: status(self, width=16)
+
+
+   .. method:: start(self)
+      :async:
+
+
+   .. method:: stop(self)
+
+
+   .. method:: set_evaluate(self, evaluate)
+
+
+   .. method:: logic(self, msg)
+      :async:
+
+
+   .. method:: listen(self)
+      :async:
+
+
+   .. method:: run(self)
+
+
+   .. method:: show_configs(self, label='')
+
+
+

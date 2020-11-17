@@ -1,0 +1,110 @@
+:mod:`teeport.teeport`
+======================
+
+.. py:module:: teeport.teeport
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   teeport.teeport.Teeport
+
+
+
+.. py:class:: Teeport(uri, name=None, parent=None, children=None)
+
+   Bases: :class:`anytree.NodeMixin`
+
+   The Teeport node class.
+
+   Teeport node that connects to the Teeport backend service.
+
+   :param uri: The uri of the Teeport backend service.
+               Usually looks like 'ws://xxx.xxx.xxx.xxx:8080' or
+               'wss://some.domain/io'
+   :type uri: str
+   :param name: Name of this Teeport node
+   :type name: str
+   :param parent: The parent of this node.
+                  Use this to build a Teeport node network
+   :type parent: obj
+   :param children: The children of this node.
+                    Use this to build a Teeport node network
+   :type children: list
+
+   :returns: A Teeport node instance
+   :rtype: obj
+
+   .. method:: link(self)
+
+      Connect to the backend service.
+
+      By default, a newly created Teeport node doesn't automatically
+      connect to the Teeport backend service. To connect manually, call
+      this method.
+
+
+   .. method:: unlink(self)
+
+
+   .. method:: is_busy(self)
+
+
+   .. method:: status(self, width=16)
+
+
+   .. method:: run_optimizer(self, optimize, class_id=None, name=None, configs=None, private=False, auto_start=True, connected_callback=None, started_callback=None, finished_callback=None)
+
+
+   .. method:: run_evaluator(self, evaluate, class_id=None, name=None, configs=None, private=False, auto_start=True, connected_callback=None, finished_callback=None)
+
+
+   .. method:: run_processor(self, process, name=None)
+
+
+   .. method:: use_optimizer(self, optimize=None, class_id=None, name=None, configs=None)
+      :async:
+
+
+   .. method:: use_evaluator(self, evaluate=None, class_id=None, name=None, configs=None)
+
+
+   .. method:: use_processor(self, process=None, name=None)
+
+
+   .. method:: _init_optimizer_private(self, optimize, class_id=None, name=None, configs=None)
+
+
+   .. method:: _init_evaluator_private(self, evaluate, class_id=None, name=None, configs=None)
+
+
+   .. method:: _get_evaluate_remote(self, evaluator_id, configs)
+
+
+   .. method:: _get_evaluate_local(self, evaluate, class_id, name, configs)
+
+
+   .. method:: _get_optimize_remote(self, optimizer_id, configs)
+
+
+   .. method:: _get_optimize_local(self, optimize, class_id, name, configs)
+
+
+   .. method:: stop(self, recursive=True)
+
+
+   .. method:: reset(self, recursive=True)
+
+
+   .. method:: spawn(self, name=None)
+
+
+   .. method:: show_topology(self, label='')
+
+
+

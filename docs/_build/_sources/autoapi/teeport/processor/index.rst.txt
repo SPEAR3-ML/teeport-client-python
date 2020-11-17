@@ -1,0 +1,45 @@
+:mod:`teeport.processor`
+========================
+
+.. py:module:: teeport.processor
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   teeport.processor.Processor
+
+
+
+.. py:class:: Processor(uri, name=None, local=True)
+
+   .. method:: status(self, width=16)
+
+
+   .. method:: start(self)
+      :async:
+
+
+   .. method:: stop(self)
+
+
+   .. method:: set_process(self, process)
+
+
+   .. method:: logic(self, msg)
+      :async:
+
+
+   .. method:: listen(self)
+      :async:
+
+
+   .. method:: run(self)
+
+
+
