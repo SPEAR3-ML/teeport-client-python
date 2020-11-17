@@ -14,13 +14,6 @@ Welcome to Teeport Client's documentation!
 
 .. autoclass:: Teeport
     :members:
-..     :undoc-members:
-
-.. module:: teeport.evaluator
-
-.. autoclass:: Evaluator
-    :members:
-    :undoc-members:
 
 Indices and tables
 ==================
