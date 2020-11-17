@@ -10,7 +10,17 @@ Welcome to Teeport Client's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. module:: teeport.teeport
 
+.. autoclass:: Teeport
+    :members:
+..     :undoc-members:
+
+.. module:: teeport.evaluator
+
+.. autoclass:: Evaluator
+    :members:
+    :undoc-members:
 
 Indices and tables
 ==================
