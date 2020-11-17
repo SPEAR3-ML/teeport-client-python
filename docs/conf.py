@@ -30,7 +30,7 @@ author = 'Zhe Zhang'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'autoapi.extension'
+#     'autoapi.extension'
 ]
 
 # Set up autoapi

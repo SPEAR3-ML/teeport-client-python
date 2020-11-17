@@ -10,6 +10,11 @@ Welcome to Teeport Client's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. module:: teeport.teeport
+
+.. autoclass:: Teeport
+    :members:
+
 Indices and tables
 ==================
 
