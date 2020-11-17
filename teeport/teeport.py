@@ -16,6 +16,31 @@ from .processor import Processor
 from .wildcard import Wildcard
 
 class Teeport(NodeMixin):
+    """The Teeport node class.
+
+    Teeport node that connects to the Teeport backend service.
+
+    Parameters
+    ----------
+    uri : str
+        The uri of the Teeport backend service.
+        Usually looks like 'ws://xxx.xxx.xxx.xxx:8080' or
+        'wss://some.domain/io'
+    name : str
+        Name of this Teeport node
+    parent : obj
+        The parent of this node.
+        Use this to build a Teeport node network
+    children : list
+        The children of this node.
+        Use this to build a Teeport node network
+
+    Returns
+    -------
+    obj
+        A Teeport node instance
+
+    """
     def __init__(self, uri, name=None, parent=None, children=None):
         self.uri = uri
         self.optimizer = None
@@ -37,6 +62,13 @@ class Teeport(NodeMixin):
             self.children = children
     
     def link(self):
+        """Connect to the backend service.
+
+        By default, a newly created Teeport node doesn't automatically
+        connect to the Teeport backend service. To connect manually, call
+        this method.
+
+        """
         if self.wildcard:
             if self.wildcard.task:
                 print('teeport: already linked')
