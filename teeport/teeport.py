@@ -24,8 +24,8 @@ class Teeport(NodeMixin):
     ----------
     uri : str
         The uri of the Teeport backend service.
-        Usually looks like 'ws://xxx.xxx.xxx.xxx:8080' or
-        'wss://some.domain/io'
+        Usually looks like `ws://xxx.xxx.xxx.xxx:8080` or
+        `wss://some.domain/io`
     name : str
         Name of this Teeport node
     parent : obj
@@ -34,11 +34,6 @@ class Teeport(NodeMixin):
     children : list
         The children of this node.
         Use this to build a Teeport node network
-
-    Returns
-    -------
-    obj
-        A Teeport node instance
 
     """
     def __init__(self, uri, name=None, parent=None, children=None):
