@@ -3,17 +3,28 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Teeport Client's documentation!
-==========================================
+Teeport Client for Python
+=========================
+
+The Teeport client for python connects optimization related functions (`optimize`, `evaluate` or `process` function) written in python to the Teeport backend service. Through the minimal APIs provided by this package, your functions will be able to talk to the other functions written in other languages/require specific resources/have physical restrictions, to complete the optimization process.
 
 .. toctree::
+   :caption: Teeport 101
+   :maxdepth: 1
+
+   intro
+   
+.. toctree::
+   :caption: API Documents
    :maxdepth: 2
-   :caption: Contents:
-
-.. module:: teeport.teeport
-
-.. autoclass:: Teeport
-    :members:
+   
+   teeport
+   
+.. toctree::
+   :caption: Examples
+   :maxdepth: 2
+      
+   examples
 
 Indices and tables
 ==================

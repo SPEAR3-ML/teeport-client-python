@@ -1,76 +1,218 @@
 
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Teeport Client’s documentation! &#8212; Teeport Client  documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Teeport Client for Python &mdash; Teeport Client  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Motivation" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> Teeport Client
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="welcome-to-teeport-client-s-documentation">
-<h1>Welcome to Teeport Client’s documentation!<a class="headerlink" href="#welcome-to-teeport-client-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<span class="target" id="module-teeport.teeport"></span><dl class="py class">
-<dt id="teeport.teeport.Teeport">
-<em class="property">class </em><code class="sig-prename descclassname">teeport.teeport.</code><code class="sig-name descname">Teeport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">children</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Teeport node class.</p>
-<p>Teeport node that connects to the Teeport backend service.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>uri</strong> (<em>str</em>) – The uri of the Teeport backend service.
-Usually looks like ‘ws://xxx.xxx.xxx.xxx:8080’ or
-‘wss://some.domain/io’</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – Name of this Teeport node</p></li>
-<li><p><strong>parent</strong> (<em>obj</em>) – The parent of this node.
-Use this to build a Teeport node network</p></li>
-<li><p><strong>children</strong> (<em>list</em>) – The children of this node.
-Use this to build a Teeport node network</p></li>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Teeport 101</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#concepts">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#philosophy-of-teeport">Philosophy of Teeport</a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A Teeport node instance</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>obj</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="teeport.teeport.Teeport.link">
-<code class="sig-name descname">link</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.link" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connect to the backend service.</p>
-<p>By default, a newly created Teeport node doesn’t automatically
-connect to the Teeport backend service. To connect manually, call
-this method.</p>
-</dd></dl>
+<p class="caption"><span class="caption-text">API Documents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html">Teeport Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#teeport-modules">Teeport Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#module-teeport.exceptions">Teeport Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">For Algorithm Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-algorithm-developers">For Algorithm Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-both">For Both</a></li>
+</ul>
 
-</dd></dl>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
 
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Teeport Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Teeport Client for Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="teeport-client-for-python">
+<h1>Teeport Client for Python<a class="headerlink" href="#teeport-client-for-python" title="Permalink to this headline">¶</a></h1>
+<p>The Teeport client for python connects optimization related functions (<cite>optimize</cite>, <cite>evaluate</cite> or <cite>process</cite> function) written in python to the Teeport backend service. Through the minimal APIs provided by this package, your functions will be able to talk to the other functions written in other languages/require specific resources/have physical restrictions, to complete the optimization process.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Teeport 101</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#concepts">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#philosophy-of-teeport">Philosophy of Teeport</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API Documents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html">Teeport Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.teeport">Teeport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.evaluator">Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.optimizer">Optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.processor">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.wildcard">Wildcard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#teeport-modules">Teeport Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.constants">constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teeport.html#module-teeport.utils">utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#module-teeport.exceptions">Teeport Exceptions</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">For Algorithm Users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#use-an-optimizer">Use an optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ship-an-evaluator">Ship an evaluator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-algorithm-developers">For Algorithm Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#use-an-evaluator">Use an evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ship-an-optimizer">Ship an optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-both">For Both</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#use-a-processor">Use a processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ship-a-processor">Ship a processor</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -82,66 +224,57 @@ this method.</p>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Teeport Client</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro.html" class="btn btn-neutral float-right" title="Motivation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Zhe Zhang
 
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, Zhe Zhang.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

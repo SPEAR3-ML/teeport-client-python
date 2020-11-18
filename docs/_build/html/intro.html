@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Motivation &mdash; Teeport Client  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Teeport Classes" href="teeport.html" />
+    <link rel="prev" title="Teeport Client for Python" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Teeport Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Teeport 101</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Motivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-wall">The Wall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#break-the-wall">Break the Wall</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#concepts">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#evaluator">Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimizer">Optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processor">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitor">Monitor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#philosophy-of-teeport">Philosophy of Teeport</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html">Teeport Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#teeport-modules">Teeport Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="teeport.html#module-teeport.exceptions">Teeport Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">For Algorithm Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-algorithm-developers">For Algorithm Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-both">For Both</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Teeport Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Motivation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="motivation">
+<h1>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-wall">
+<h2>The Wall<a class="headerlink" href="#the-wall" title="Permalink to this headline">¶</a></h2>
+<p>There’s a wall between the optimization algorithm and problem when:</p>
+<ul class="simple">
+<li><p>They are written in different language</p>
+<ul>
+<li><p>i.e. algorithm in <cite>python</cite> and problem in <cite>matlab</cite></p></li>
+</ul>
+</li>
+<li><p>They are located at different place and can’t be easily put together</p>
+<ul>
+<li><p>i.e. remote optimization due to COVID-19</p></li>
+</ul>
+</li>
+<li><p>The policy doesn’t allow the environment configurations that are needed for the algorithm/problem</p>
+<ul>
+<li><p>i.e. The strict policy in the accelerator control rooms</p></li>
+</ul>
+</li>
+</ul>
+<p>Even within the algorithm there could be a wall: imagine that you want to use some python modules in your matlab algorithm.</p>
+</div>
+<div class="section" id="break-the-wall">
+<h2>Break the Wall<a class="headerlink" href="#break-the-wall" title="Permalink to this headline">¶</a></h2>
+<p>Calling one language script/function within another language script/function is
+cumbersome and sometimes not feasible. Translating the code to the target
+language usually requires expert skills and lots of attention, energy and time.
+Besides, the translation process is highly error-prone. Use an implementation that already exists is risky from time to time. The way to go is breaking the wall.</p>
+<p>Introducing Teeport.</p>
+</div>
+</div>
+<div class="section" id="concepts">
+<h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
+<p>Before officially introduce Teeport, let’s have a look at the basic concepts/terms used frequently in a Teeport context: <a class="reference internal" href="#evaluator">Evaluator</a>, <a class="reference internal" href="#optimizer">Optimizer</a>, <a class="reference internal" href="#processor">Processor</a> and <a class="reference internal" href="#monitor">Monitor</a>.</p>
+<div class="section" id="evaluator">
+<h2>Evaluator<a class="headerlink" href="#evaluator" title="Permalink to this headline">¶</a></h2>
+<p>An implementation of a optimization problem. Usually can be abstracted as a function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">configs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where the <code class="docutils literal notranslate"><span class="pre">configs</span></code> variable is the configuration of the problem, say:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;noise_level&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># emulate the experimental env</span>
+    <span class="s1">&#39;wall_time&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># emulate the experimental env</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optimizer">
+<h2>Optimizer<a class="headerlink" href="#optimizer" title="Permalink to this headline">¶</a></h2>
+<p>An implementation of an optimization algorithm:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_best</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">evaluate</span><span class="p">,</span> <span class="n">configs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> variable is the target function to be optimized:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An example of <code class="docutils literal notranslate"><span class="pre">configs</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="c1"># dimension of the problem to be optimized</span>
+    <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="c1"># maximum iterations</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="processor">
+<h2>Processor<a class="headerlink" href="#processor" title="Permalink to this headline">¶</a></h2>
+<p>A function that processes data and return the processed result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">configs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An example of <code class="docutils literal notranslate"><span class="pre">configs</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;return_grad&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;ard&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="monitor">
+<h2>Monitor<a class="headerlink" href="#monitor" title="Permalink to this headline">¶</a></h2>
+<p>A visualization of the data flow between the <a class="reference internal" href="#optimizer">Optimizer</a> and the <a class="reference internal" href="#evaluator">Evaluator</a> that catches some feature of the data.</p>
+<img alt="evaluation history monitor" src="_images/monitor.png" />
+</div>
+</div>
+<div class="section" id="philosophy-of-teeport">
+<h1>Philosophy of Teeport<a class="headerlink" href="#philosophy-of-teeport" title="Permalink to this headline">¶</a></h1>
+<p>Teeport is designed to break the wall between the optimization algorithms and problems.</p>
+<a class="reference internal image-reference" href="_images/teeport-idea.png"><img alt="idea behind teeport" class="align-center" src="_images/teeport-idea.png" style="width: 80%;" /></a>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="teeport.html" class="btn btn-neutral float-right" title="Teeport Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Teeport Client for Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Zhe Zhang
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

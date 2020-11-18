@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Teeport Classes &mdash; Teeport Client  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="For Algorithm Users" href="examples.html" />
+    <link rel="prev" title="Motivation" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Teeport Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Teeport 101</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#concepts">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#philosophy-of-teeport">Philosophy of Teeport</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Teeport Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.teeport">Teeport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.evaluator">Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.optimizer">Optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.processor">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.wildcard">Wildcard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#teeport-modules">Teeport Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.constants">constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-teeport.utils">utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-teeport.exceptions">Teeport Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">For Algorithm Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-algorithm-developers">For Algorithm Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#for-both">For Both</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Teeport Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Teeport Classes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/teeport.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="teeport-classes">
+<h1>Teeport Classes<a class="headerlink" href="#teeport-classes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-teeport.teeport">
+<span id="teeport"></span><h2>Teeport<a class="headerlink" href="#module-teeport.teeport" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="teeport.teeport.Teeport">
+<em class="property">class </em><code class="sig-prename descclassname">teeport.teeport.</code><code class="sig-name descname">Teeport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">children</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">anytree.node.nodemixin.NodeMixin</span></code></p>
+<p>The Teeport node class.</p>
+<p>Teeport node that connects to the Teeport backend service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uri</strong> (<em>str</em>) – The uri of the Teeport backend service.
+Usually looks like <cite>ws://xxx.xxx.xxx.xxx:8080</cite> or
+<cite>wss://some.domain/io</cite></p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of this Teeport node</p></li>
+<li><p><strong>parent</strong> (<em>obj</em>) – The parent of this node.
+Use this to build a Teeport node network</p></li>
+<li><p><strong>children</strong> (<em>list</em>) – The children of this node.
+Use this to build a Teeport node network</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.is_busy">
+<code class="sig-name descname">is_busy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.is_busy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.link">
+<code class="sig-name descname">link</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the backend service.</p>
+<p>By default, a newly created Teeport node doesn’t automatically
+connect to the Teeport backend service. To connect manually, call
+this method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.run_evaluator">
+<code class="sig-name descname">run_evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evaluate</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">auto_start</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connected_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">finished_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.run_evaluator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.run_optimizer">
+<code class="sig-name descname">run_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimize</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">auto_start</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connected_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">started_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">finished_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.run_optimizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.run_processor">
+<code class="sig-name descname">run_processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.run_processor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.show_topology">
+<code class="sig-name descname">show_topology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.show_topology" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.spawn">
+<code class="sig-name descname">spawn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.spawn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.status">
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.unlink">
+<code class="sig-name descname">unlink</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.unlink" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.use_evaluator">
+<code class="sig-name descname">use_evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evaluate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.use_evaluator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.use_optimizer">
+<code class="sig-name descname">use_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.use_optimizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.teeport.Teeport.use_processor">
+<code class="sig-name descname">use_processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.use_processor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-teeport.evaluator">
+<span id="evaluator"></span><h2>Evaluator<a class="headerlink" href="#module-teeport.evaluator" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="teeport.evaluator.Evaluator">
+<em class="property">class </em><code class="sig-prename descclassname">teeport.evaluator.</code><code class="sig-name descname">Evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.listen">
+<em class="property">async </em><code class="sig-name descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.listen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.logic">
+<em class="property">async </em><code class="sig-name descname">logic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.logic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.set_evaluate">
+<code class="sig-name descname">set_evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evaluate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.set_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.show_configs">
+<code class="sig-name descname">show_configs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.show_configs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.status">
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.evaluator.Evaluator.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.evaluator.Evaluator.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-teeport.optimizer">
+<span id="optimizer"></span><h2>Optimizer<a class="headerlink" href="#module-teeport.optimizer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="teeport.optimizer.Optimizer">
+<em class="property">class </em><code class="sig-prename descclassname">teeport.optimizer.</code><code class="sig-name descname">Optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.cancel_optimize">
+<code class="sig-name descname">cancel_optimize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.cancel_optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.listen">
+<em class="property">async </em><code class="sig-name descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.listen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.logic">
+<em class="property">async </em><code class="sig-name descname">logic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.logic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.set_optimize">
+<code class="sig-name descname">set_optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.set_optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.show_json">
+<code class="sig-name descname">show_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.show_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.status">
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.optimizer.Optimizer.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.optimizer.Optimizer.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-teeport.processor">
+<span id="processor"></span><h2>Processor<a class="headerlink" href="#module-teeport.processor" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="teeport.processor.Processor">
+<em class="property">class </em><code class="sig-prename descclassname">teeport.processor.</code><code class="sig-name descname">Processor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="teeport.processor.Processor.listen">
+<em class="property">async </em><code class="sig-name descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.listen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.logic">
+<em class="property">async </em><code class="sig-name descname">logic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.logic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.set_process">
+<code class="sig-name descname">set_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.set_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.status">
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.processor.Processor.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.processor.Processor.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-teeport.wildcard">
+<span id="wildcard"></span><h2>Wildcard<a class="headerlink" href="#module-teeport.wildcard" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="teeport.wildcard.Wildcard">
+<em class="property">class </em><code class="sig-prename descclassname">teeport.wildcard.</code><code class="sig-name descname">Wildcard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.check_client">
+<code class="sig-name descname">check_client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.check_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.delete_task">
+<code class="sig-name descname">delete_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.delete_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.get_tasks">
+<code class="sig-name descname">get_tasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.get_tasks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.init_task">
+<code class="sig-name descname">init_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer_id</span></em>, <em class="sig-param"><span class="n">evaluator_id</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.init_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.listen">
+<em class="property">async </em><code class="sig-name descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.listen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.logic">
+<em class="property">async </em><code class="sig-name descname">logic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.logic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.status">
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="teeport.wildcard.Wildcard.wait_for_reply">
+<em class="property">async </em><code class="sig-name descname">wait_for_reply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.wildcard.Wildcard.wait_for_reply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="teeport-modules">
+<h1>Teeport Modules<a class="headerlink" href="#teeport-modules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-teeport.constants">
+<span id="constants"></span><h2>constants<a class="headerlink" href="#module-teeport.constants" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt id="teeport.constants.WS_MSG_MAX_SIZE">
+<code class="sig-prename descclassname">teeport.constants.</code><code class="sig-name descname">WS_MSG_MAX_SIZE</code><em class="property"> = None</em><a class="headerlink" href="#teeport.constants.WS_MSG_MAX_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum websocket message size in byte, None means no limitation</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-teeport.utils">
+<span id="utils"></span><h2>utils<a class="headerlink" href="#module-teeport.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="teeport.utils.make_async">
+<code class="sig-prename descclassname">teeport.utils.</code><code class="sig-name descname">make_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.utils.make_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="teeport.utils.make_sync">
+<code class="sig-prename descclassname">teeport.utils.</code><code class="sig-name descname">make_sync</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.utils.make_sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="teeport.utils.params_2_querystring">
+<code class="sig-prename descclassname">teeport.utils.</code><code class="sig-name descname">params_2_querystring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.utils.params_2_querystring" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-teeport.exceptions">
+<span id="teeport-exceptions"></span><h1>Teeport Exceptions<a class="headerlink" href="#module-teeport.exceptions" title="Permalink to this headline">¶</a></h1>
+<dl class="py exception">
+<dt id="teeport.exceptions.Disconnected">
+<em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">Disconnected</code><a class="headerlink" href="#teeport.exceptions.Disconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="teeport.exceptions.OptimizerStopped">
+<em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">OptimizerStopped</code><a class="headerlink" href="#teeport.exceptions.OptimizerStopped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="teeport.exceptions.TaskStopped">
+<em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">TaskStopped</code><a class="headerlink" href="#teeport.exceptions.TaskStopped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="For Algorithm Users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="Motivation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Zhe Zhang
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
