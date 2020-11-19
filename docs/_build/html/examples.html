@@ -185,8 +185,8 @@
 <span class="n">teeport</span> <span class="o">=</span> <span class="n">Teeport</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8080/&#39;</span><span class="p">)</span>
 
 <span class="c1"># Use the optimizer</span>
-<span class="n">optimize</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_optimizer</span><span class="p">(</span><span class="s1">&#39;isBiBX4Rv&#39;</span><span class="p">)</span>
-
+<span class="hll"><span class="n">optimize</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_optimizer</span><span class="p">(</span><span class="s1">&#39;isBiBX4Rv&#39;</span><span class="p">)</span>
+</span>
 <span class="n">optimize</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -199,8 +199,8 @@
 <span class="n">teeport</span> <span class="o">=</span> <span class="n">Teeport</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8080/&#39;</span><span class="p">)</span>
 
 <span class="c1"># Ship the problem</span>
-<span class="n">teeport</span><span class="o">.</span><span class="n">run_evaluator</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
-<span class="c1"># evaluator id: S6QV_KO-s</span>
+<span class="hll"><span class="n">teeport</span><span class="o">.</span><span class="n">run_evaluator</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
+</span><span class="c1"># evaluator id: S6QV_KO-s</span>
 </pre></div>
 </div>
 </div>
@@ -215,8 +215,8 @@
 <span class="n">teeport</span> <span class="o">=</span> <span class="n">Teeport</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8080/&#39;</span><span class="p">)</span>
 
 <span class="c1"># Use the evaluator</span>
-<span class="n">evaluate</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_evaluator</span><span class="p">(</span><span class="s1">&#39;c4oiY1_oe&#39;</span><span class="p">)</span>
-
+<span class="hll"><span class="n">evaluate</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_evaluator</span><span class="p">(</span><span class="s1">&#39;c4oiY1_oe&#39;</span><span class="p">)</span>
+</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
@@ -246,8 +246,8 @@
 <span class="n">teeport</span> <span class="o">=</span> <span class="n">Teeport</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8080/&#39;</span><span class="p">)</span>
 
 <span class="c1"># Use the processor</span>
-<span class="n">process</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_processor</span><span class="p">(</span><span class="s1">&#39;BLBaVJxOy&#39;</span><span class="p">)</span>
-
+<span class="hll"><span class="n">process</span> <span class="o">=</span> <span class="n">teeport</span><span class="o">.</span><span class="n">use_processor</span><span class="p">(</span><span class="s1">&#39;BLBaVJxOy&#39;</span><span class="p">)</span>
+</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -260,8 +260,8 @@
 <span class="n">teeport</span> <span class="o">=</span> <span class="n">Teeport</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8080/&#39;</span><span class="p">)</span>
 
 <span class="c1"># Ship the processor</span>
-<span class="n">teeport</span><span class="o">.</span><span class="n">run_processor</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
-<span class="c1"># processor id: BLBaVJxOy</span>
+<span class="hll"><span class="n">teeport</span><span class="o">.</span><span class="n">run_processor</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+</span><span class="c1"># processor id: BLBaVJxOy</span>
 </pre></div>
 </div>
 </div>

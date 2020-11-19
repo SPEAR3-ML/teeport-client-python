@@ -184,17 +184,22 @@
 <em class="property">class </em><code class="sig-prename descclassname">teeport.teeport.</code><code class="sig-name descname">Teeport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">children</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">anytree.node.nodemixin.NodeMixin</span></code></p>
 <p>The Teeport node class.</p>
-<p>Teeport node that connects to the Teeport backend service.</p>
+<p>Teeport node that connects to the Teeport backend service. Using Teeport
+node, one can use/ship an evaluator/optimizer/processor.
+Note that by design, one Teeport node can only hold one evaluator and
+one optimizer. The number of processors is unlimited, though.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uri</strong> (<em>str</em>) – The uri of the Teeport backend service.
 Usually looks like <cite>ws://xxx.xxx.xxx.xxx:8080</cite> or
 <cite>wss://some.domain/io</cite></p></li>
-<li><p><strong>name</strong> (<em>str</em>) – Name of this Teeport node</p></li>
-<li><p><strong>parent</strong> (<em>obj</em>) – The parent of this node.
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of this Teeport node.
+If not specified, will be assigned a random two-word name
+at the time of initialization</p></li>
+<li><p><strong>parent</strong> (<em>object</em><em>, </em><em>optional</em>) – The parent of this node.
 Use this to build a Teeport node network</p></li>
-<li><p><strong>children</strong> (<em>list</em>) – The children of this node.
+<li><p><strong>children</strong> (<em>list of object</em><em>, </em><em>optional</em>) – The children of this node.
 Use this to build a Teeport node network</p></li>
 </ul>
 </dd>
@@ -202,7 +207,16 @@ Use this to build a Teeport node network</p></li>
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.is_busy">
 <code class="sig-name descname">is_busy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.is_busy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if there is an optimization task going on in this node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if there is a task going on, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.link">
@@ -221,12 +235,124 @@ this method.</p>
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.run_evaluator">
 <code class="sig-name descname">run_evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evaluate</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">auto_start</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connected_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">finished_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.run_evaluator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ship an optimization problem to the Teeport backend service.</p>
+<p>When ship a problem with this API, a local evaluator will be
+created in this Teeport node, and put into a standby mode. Whenever
+it receives a <cite>evaluate</cite> signal, it will evaluate the <cite>X</cite> data
+in the websocket data package and return the evaluated <cite>Y</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evaluate</strong> (<em>function</em>) – The optimization problem to be shipped to Teeport.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the optimization problem.
+Usually something like <cite>Rosenbrock</cite>, <cite>ZDT1</cite>, <cite>DTLZ2</cite>, <cite>DA</cite>, etc.
+Note that <cite>class_id</cite> should be treated as the only identifier for
+the problem.
+It’s highly encouraged to provide a <cite>class_id</cite>
+for each shipped problem.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the optimization problem.</p></li>
+<li><p><strong>configs</strong> (<em>dict</em><em>, </em><em>optional</em>) – The initial configurations for the <cite>evaluate</cite> function.
+<cite>configs</cite> should agree with the one from the arguments of the
+<cite>evaluate</cite> function.</p></li>
+<li><p><strong>private</strong> (<em>bool</em><em>, </em><em>optional</em>) – If run the evaluator as private.
+If True, the evaluator’s socket id will be concealed.</p></li>
+<li><p><strong>auto_start</strong> (<em>bool</em><em>, </em><em>optional</em>) – If activate the evaluator when shipping.
+If False, the evaluator won’t be running even it’s
+connected to the Teeport service.</p></li>
+<li><p><strong>connected_callback</strong> (<em>function</em><em>, </em><em>optional</em>) – These are the hooks that get called at different stages of
+the evaluator. When the evaluator is connected to the Teeport
+service, the <cite>connected_callback</cite> function will be called;
+The <cite>finished_callback</cite> function will be called
+when the optimization is finished.</p></li>
+<li><p><strong>finished_callback</strong> (<em>function</em><em>, </em><em>optional</em>) – These are the hooks that get called at different stages of
+the evaluator. When the evaluator is connected to the Teeport
+service, the <cite>connected_callback</cite> function will be called;
+The <cite>finished_callback</cite> function will be called
+when the optimization is finished.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#teeport.teeport.Teeport.run_optimizer" title="teeport.teeport.Teeport.run_optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_optimizer</span></code></a></dt><dd><p>Ship an optimizer to Teeport</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.run_optimizer">
 <code class="sig-name descname">run_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimize</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">private</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">auto_start</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connected_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">started_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">finished_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.run_optimizer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ship an optimization algorithm to the Teeport backend service.</p>
+<p>When ship an algorithm with this API, a local optimizer will be
+created in this Teeport node, and put into a standby mode. Whenever
+it receives a <cite>start task</cite> signal, one round of optimization will begin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimize</strong> (<em>function</em>) – The optimization algorithm to be shipped to Teeport.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the optimization algorithm.
+Usually something like <cite>NSGA-II</cite>, <cite>PSO</cite>, <cite>EGO</cite>, <cite>RCDS</cite>, etc.
+Note that <cite>class_id</cite> should be treated as the only identifier for
+the algorithm, so algorithms with the same <cite>class_id</cite> would be
+treated as identical algorithms.
+Even though this argument is optional, it’s highly encouraged to
+provide a <cite>class_id</cite> for each shipped algorithm.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the optimization algorithm.
+Different from the <cite>class_id</cite>, the same class of algorithm can
+have different names. If set to <cite>None</cite>, which is the default
+value, the optimizer will be given a random two-word name by
+the time of shipping.</p></li>
+<li><p><strong>configs</strong> (<em>dict</em><em>, </em><em>optional</em>) – The initial configurations for the <cite>optimize</cite> function.
+<cite>configs</cite> should agree with the one from the arguments of the
+<cite>optimize</cite> function.</p></li>
+<li><p><strong>private</strong> (<em>bool</em><em>, </em><em>optional</em>) – If run the optimizer as private.
+If True, the optimizer’s socket id will be concealed, so that no
+one else can use it by referring to the socket id.</p></li>
+<li><p><strong>auto_start</strong> (<em>bool</em><em>, </em><em>optional</em>) – If activate the optimizer when shipping.
+If False, the optimizer won’t be running even it’s already
+connected to the Teeport service.</p></li>
+<li><p><strong>connected_callback</strong> (<em>function</em><em>, </em><em>optional</em>) – These are the hooks that get called at different stages of
+the optimizer. When the optimizer is connected to the Teeport
+service, the <cite>connected_callback</cite> function will be called;
+When the optimizer is started (activated),
+the <cite>started_callback</cite> function will be called;
+When the optimization is finished (the optimizer will be put
+to a standby mode),
+the <cite>finished_callback</cite> function will be called.</p></li>
+<li><p><strong>started_callback</strong> (<em>function</em><em>, </em><em>optional</em>) – These are the hooks that get called at different stages of
+the optimizer. When the optimizer is connected to the Teeport
+service, the <cite>connected_callback</cite> function will be called;
+When the optimizer is started (activated),
+the <cite>started_callback</cite> function will be called;
+When the optimization is finished (the optimizer will be put
+to a standby mode),
+the <cite>finished_callback</cite> function will be called.</p></li>
+<li><p><strong>finished_callback</strong> (<em>function</em><em>, </em><em>optional</em>) – These are the hooks that get called at different stages of
+the optimizer. When the optimizer is connected to the Teeport
+service, the <cite>connected_callback</cite> function will be called;
+When the optimizer is started (activated),
+the <cite>started_callback</cite> function will be called;
+When the optimization is finished (the optimizer will be put
+to a standby mode),
+the <cite>finished_callback</cite> function will be called.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.run_processor">
@@ -246,7 +372,16 @@ this method.</p>
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.status">
 <code class="sig-name descname">status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Print out the status of this Teeport node.</p>
+<p>Get most of the important information of the current node.
+Including the information of the optimizer, the evaluator
+and the processors. Also display the node topology.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>width</strong> (<em>int</em>) – The width of the property column in the printed form.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.stop">
@@ -256,17 +391,99 @@ this method.</p>
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.unlink">
 <code class="sig-name descname">unlink</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.unlink" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Disconnect from the backend service.</p>
+<p>Manually disconnect the possible websockets that connected to the
+Teeport backend service from this Teeport node.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.use_evaluator">
 <code class="sig-name descname">use_evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">evaluate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.use_evaluator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Use an optimization problem from the Teeport backend service.</p>
+<p>Use a remote optimization problem by providing its socket id, or
+use a local optimization problem to monitor the optimization
+process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evaluate</strong> (<em>str</em><em> or </em><em>function</em>) – The optimization problem to be used.
+Feed in a string to use the evaluator with the socket id
+of <cite>evaluate</cite> on Teeport; Feed in a local evaluation function
+to monitor the optimization process.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the optimization problem. Only useful when the
+<cite>evaluate</cite> argument is a function.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the optimization problem. Only useful when the
+<cite>evaluate</cite> argument is a function.</p></li>
+<li><p><strong>configs</strong> (<em>dict</em><em>, </em><em>optional</em>) – The configurations of the optimization problem to be used
+for the following optimization tasks. If set to None,
+the problem will use its default/initial configurations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A wrapped function if the argument <cite>evaluate</cite> is a function;
+A newly created local evaluate function otherwise. Either way,
+the returned function is a local normal (sync) function with the
+signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#teeport.teeport.Teeport.use_optimizer" title="teeport.teeport.Teeport.use_optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_optimizer</span></code></a></dt><dd><p>Use a remote optimization algorithm or monitor the local optimization process</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.use_optimizer">
 <code class="sig-name descname">use_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">configs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.teeport.Teeport.use_optimizer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Use an optimization algorithm from the Teeport backend service.</p>
+<p>Use a remote optimization algorithm by providing its socket id, or
+use a local optimization algorithm to monitor the optimization
+process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimize</strong> (<em>str</em><em> or </em><em>function</em>) – The optimization algorithm to be used.
+Feed in a string to use the optimizer with the socket id
+of <cite>optimize</cite> on Teeport; Feed in a local function to monitor
+the optimization process.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the optimization algorithm. Only useful when the
+<cite>optimize</cite> argument is a function.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the optimization algorithm. Only useful when the
+<cite>optimize</cite> argument is a function.</p></li>
+<li><p><strong>configs</strong> (<em>dict</em><em>, </em><em>optional</em>) – The configurations of the optimization algorithm to be used
+for the following optimization tasks. If set to None,
+the algorithm will use its default/initial configurations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A wrapped function if the argument <cite>optimize</cite> is a function;
+A newly created local optimize function otherwise. Either way,
+the returned function is a local normal (sync) function with the
+signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">optimize</span><span class="p">(</span><span class="n">evaluate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where <cite>evaluate</cite> has the signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="teeport.teeport.Teeport.use_processor">
@@ -504,12 +721,42 @@ this method.</p>
 <dl class="py function">
 <dt id="teeport.utils.make_async">
 <code class="sig-prename descclassname">teeport.utils.</code><code class="sig-name descname">make_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.utils.make_async" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Make a function async.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – The function to be made async.
+Can be a normal (sync) function or an async function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The async version of the input <cite>func</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>A sync function is just a <cite>normal</cite> function, which will block
+the current thread when executing; While an async function is
+a promise, which is non-blocking.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="teeport.utils.make_sync">
 <code class="sig-prename descclassname">teeport.utils.</code><code class="sig-name descname">make_sync</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#teeport.utils.make_sync" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Make a function sync.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – The function to be made sync.
+Can be a normal (sync) function or an async function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sync version of the input <cite>func</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="teeport.utils.params_2_querystring">
@@ -524,18 +771,21 @@ this method.</p>
 <dt id="teeport.exceptions.Disconnected">
 <em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">Disconnected</code><a class="headerlink" href="#teeport.exceptions.Disconnected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Thrown when the Teeport node is disconnected abnormally.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="teeport.exceptions.OptimizerStopped">
 <em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">OptimizerStopped</code><a class="headerlink" href="#teeport.exceptions.OptimizerStopped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Thrown when the optimizer crashes.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="teeport.exceptions.TaskStopped">
 <em class="property">exception </em><code class="sig-prename descclassname">teeport.exceptions.</code><code class="sig-name descname">TaskStopped</code><a class="headerlink" href="#teeport.exceptions.TaskStopped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Thrown when a task is stopped abnormally.</p>
 </dd></dl>
 
 </div>
