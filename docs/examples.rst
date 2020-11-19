@@ -5,6 +5,7 @@ Use an optimizer
 ----------------
 
 .. code-block:: python
+    :emphasize-lines: 7
 
     from teeport import Teeport
 
@@ -20,6 +21,7 @@ Ship an evaluator
 -----------------
 
 .. code-block:: python
+    :emphasize-lines: 7
 
     from teeport import Teeport
 
@@ -37,6 +39,7 @@ Use an evaluator
 ----------------
 
 .. code-block:: python
+    :emphasize-lines: 7
 
     from teeport import Teeport
 
@@ -71,6 +74,7 @@ Use a processor
 ---------------
 
 .. code-block:: python
+    :emphasize-lines: 7
 
     from teeport import Teeport
 
@@ -86,6 +90,7 @@ Ship a processor
 ----------------
 
 .. code-block:: python
+    :emphasize-lines: 7
 
     from teeport import Teeport
 
