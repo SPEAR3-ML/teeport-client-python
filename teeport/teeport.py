@@ -18,7 +18,10 @@ from .wildcard import Wildcard
 class Teeport(NodeMixin):
     """The Teeport node class.
 
-    Teeport node that connects to the Teeport backend service.
+    Teeport node that connects to the Teeport backend service. Using Teeport
+    node, one can use/ship an evaluator/optimizer/processor.
+    Note that by design, one Teeport node can only hold one evaluator and
+    one optimizer. The number of processors is unlimited, though.
 
     Parameters
     ----------
@@ -26,15 +29,17 @@ class Teeport(NodeMixin):
         The uri of the Teeport backend service.
         Usually looks like `ws://xxx.xxx.xxx.xxx:8080` or
         `wss://some.domain/io`
-    name : str
-        Name of this Teeport node
-    parent : obj
+    name : str, optional
+        Name of this Teeport node.
+        If not specified, will be assigned a random two-word name
+        at the time of initialization
+    parent : object, optional
         The parent of this node.
         Use this to build a Teeport node network
-    children : list
+    children : list of object, optional
         The children of this node.
         Use this to build a Teeport node network
-
+    
     """
     def __init__(self, uri, name=None, parent=None, children=None):
         self.uri = uri
@@ -75,6 +80,12 @@ class Teeport(NodeMixin):
             self.wildcard.start()
             
     def unlink(self):
+        """Disconnect from the backend service.
+
+        Manually disconnect the possible websockets that connected to the
+        Teeport backend service from this Teeport node.
+
+        """
         if self.wildcard:
             if self.wildcard.task:
                 self.wildcard.stop()
@@ -85,9 +96,29 @@ class Teeport(NodeMixin):
             print('teeport: not linked yet')
     
     def is_busy(self):
+        """Check if there is an optimization task going on in this node.
+
+        Returns
+        -------
+        bool
+            True if there is a task going on, False otherwise.
+
+        """
         return bool(self.wildcard and self.wildcard.task)
     
     def status(self, width=16):
+        """Print out the status of this Teeport node.
+
+        Get most of the important information of the current node.
+        Including the information of the optimizer, the evaluator
+        and the processors. Also display the node topology.
+
+        Parameters
+        ----------
+        width : int
+            The width of the property column in the printed form.
+
+        """
         print('General\n' + '=' * 80)
         print(f'{"uri": <{width}}: {self.uri}')
         print(f'{"name": <{width}}: {self.name}')
@@ -111,6 +142,58 @@ class Teeport(NodeMixin):
         
     def run_optimizer(self, optimize, class_id=None, name=None, configs=None, private=False, auto_start=True,
                       connected_callback=None, started_callback=None, finished_callback=None):
+        """Ship an optimization algorithm to the Teeport backend service.
+
+        When ship an algorithm with this API, a local optimizer will be
+        created in this Teeport node, and put into a standby mode. Whenever
+        it receives a `start task` signal, one round of optimization will begin.
+
+        Parameters
+        ----------
+        optimize : function
+            The optimization algorithm to be shipped to Teeport.
+        class_id : str, optional
+            The id of the optimization algorithm.
+            Usually something like `NSGA-II`, `PSO`, `EGO`, `RCDS`, etc.
+            Note that `class_id` should be treated as the only identifier for
+            the algorithm, so algorithms with the same `class_id` would be
+            treated as identical algorithms.
+            Even though this argument is optional, it's highly encouraged to
+            provide a `class_id` for each shipped algorithm.
+        name : str, optional
+            The name of the optimization algorithm.
+            Different from the `class_id`, the same class of algorithm can
+            have different names. If set to `None`, which is the default
+            value, the optimizer will be given a random two-word name by
+            the time of shipping.
+        configs : dict, optional
+            The initial configurations for the `optimize` function.
+            `configs` should agree with the one from the arguments of the
+            `optimize` function.
+        private : bool, optional
+            If run the optimizer as private.
+            If True, the optimizer's socket id will be concealed, so that no
+            one else can use it by referring to the socket id.
+        auto_start : bool, optional
+            If activate the optimizer when shipping.
+            If False, the optimizer won't be running even it's already
+            connected to the Teeport service.
+        connected_callback, started_callback, finished_callback : function, optional
+            These are the hooks that get called at different stages of
+            the optimizer. When the optimizer is connected to the Teeport
+            service, the `connected_callback` function will be called;
+            When the optimizer is started (activated),
+            the `started_callback` function will be called;
+            When the optimization is finished (the optimizer will be put
+            to a standby mode),
+            the `finished_callback` function will be called.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         if self.optimizer:
             if self.optimizer.task:
                 print('teeport: please stop the current optimizer first')
@@ -128,6 +211,54 @@ class Teeport(NodeMixin):
         
     def run_evaluator(self, evaluate, class_id=None, name=None, configs=None, private=False, auto_start=True,
                       connected_callback=None, finished_callback=None):
+        """Ship an optimization problem to the Teeport backend service.
+
+        When ship a problem with this API, a local evaluator will be
+        created in this Teeport node, and put into a standby mode. Whenever
+        it receives a `evaluate` signal, it will evaluate the `X` data
+        in the websocket data package and return the evaluated `Y`.
+
+        Parameters
+        ----------
+        evaluate : function
+            The optimization problem to be shipped to Teeport.
+        class_id : str, optional
+            The id of the optimization problem.
+            Usually something like `Rosenbrock`, `ZDT1`, `DTLZ2`, `DA`, etc.
+            Note that `class_id` should be treated as the only identifier for
+            the problem.
+            It's highly encouraged to provide a `class_id`
+            for each shipped problem.
+        name : str, optional
+            The name of the optimization problem.
+        configs : dict, optional
+            The initial configurations for the `evaluate` function.
+            `configs` should agree with the one from the arguments of the
+            `evaluate` function.
+        private : bool, optional
+            If run the evaluator as private.
+            If True, the evaluator's socket id will be concealed.
+        auto_start : bool, optional
+            If activate the evaluator when shipping.
+            If False, the evaluator won't be running even it's
+            connected to the Teeport service.
+        connected_callback, finished_callback : function, optional
+            These are the hooks that get called at different stages of
+            the evaluator. When the evaluator is connected to the Teeport
+            service, the `connected_callback` function will be called;
+            The `finished_callback` function will be called
+            when the optimization is finished.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        See Also
+        --------
+        run_optimizer : Ship an optimizer to Teeport
+
+        """
         if self.evaluator:
             if self.evaluator.task:
                 print('teeport: please stop the current evaluator first')
@@ -151,6 +282,45 @@ class Teeport(NodeMixin):
         
     @make_sync
     async def use_optimizer(self, optimize=None, class_id=None, name=None, configs=None):
+        """Use an optimization algorithm from the Teeport backend service.
+
+        Use a remote optimization algorithm by providing its socket id, or
+        use a local optimization algorithm to monitor the optimization
+        process.
+
+        Parameters
+        ----------
+        optimize : str or function
+            The optimization algorithm to be used.
+            Feed in a string to use the optimizer with the socket id
+            of `optimize` on Teeport; Feed in a local function to monitor
+            the optimization process.
+        class_id : str, optional
+            The id of the optimization algorithm. Only useful when the
+            `optimize` argument is a function.
+        name : str, optional
+            The name of the optimization algorithm. Only useful when the
+            `optimize` argument is a function.
+        configs : dict, optional
+            The configurations of the optimization algorithm to be used
+            for the following optimization tasks. If set to None,
+            the algorithm will use its default/initial configurations.
+
+        Returns
+        -------
+        function
+            A wrapped function if the argument `optimize` is a function;
+            A newly created local optimize function otherwise. Either way,
+            the returned function is a local normal (sync) function with the
+            signature::
+
+                optimize(evaluate)
+
+            Where `evaluate` has the signature::
+
+                Y = evaluate(X)
+
+        """
         if self.optimizer:
             if self.optimizer.task:
                 print('teeport: please stop the current optimizer first')
@@ -189,6 +359,47 @@ class Teeport(NodeMixin):
             return self._get_optimize_local(optimize, class_id, name, configs)
     
     def use_evaluator(self, evaluate=None, class_id=None, name=None, configs=None):
+        """Use an optimization problem from the Teeport backend service.
+
+        Use a remote optimization problem by providing its socket id, or
+        use a local optimization problem to monitor the optimization
+        process.
+
+        Parameters
+        ----------
+        evaluate : str or function
+            The optimization problem to be used.
+            Feed in a string to use the evaluator with the socket id
+            of `evaluate` on Teeport; Feed in a local evaluation function
+            to monitor the optimization process.
+        class_id : str, optional
+            The id of the optimization problem. Only useful when the
+            `evaluate` argument is a function.
+        name : str, optional
+            The name of the optimization problem. Only useful when the
+            `evaluate` argument is a function.
+        configs : dict, optional
+            The configurations of the optimization problem to be used
+            for the following optimization tasks. If set to None,
+            the problem will use its default/initial configurations.
+
+        Returns
+        -------
+        function
+            A wrapped function if the argument `evaluate` is a function;
+            A newly created local evaluate function otherwise. Either way,
+            the returned function is a local normal (sync) function with the
+            signature::
+
+                Y = evaluate(X)
+        
+        See Also
+        --------
+        use_optimizer :
+            Use a remote optimization algorithm
+            or monitor the local optimization process
+        
+        """
         if self.evaluator:
             if self.evaluator.task:
                 print('teeport: please stop the current evaluator first')

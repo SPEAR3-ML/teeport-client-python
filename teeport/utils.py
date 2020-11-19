@@ -7,6 +7,26 @@ import urllib.parse
 from functools import wraps
 
 def make_async(func):
+    """Make a function async.
+
+    Parameters
+    ----------
+    func : function
+        The function to be made async.
+        Can be a normal (sync) function or an async function
+
+    Returns
+    -------
+    function
+        The async version of the input `func`
+        
+    Notes
+    -----
+    A sync function is just a `normal` function, which will block
+    the current thread when executing; While an async function is
+    a promise, which is non-blocking.
+
+    """
     if inspect.iscoroutinefunction(func):
         return func
     else:
@@ -18,6 +38,20 @@ def make_async(func):
         return func_a
 
 def make_sync(func):
+    """Make a function sync.
+
+    Parameters
+    ----------
+    func : function
+        The function to be made sync.
+        Can be a normal (sync) function or an async function
+
+    Returns
+    -------
+    function
+        The sync version of the input `func`
+
+    """
     if inspect.iscoroutinefunction(func):
         @wraps(func)
         def func_d(*args, **kwargs):
