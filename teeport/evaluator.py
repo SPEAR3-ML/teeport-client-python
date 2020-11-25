@@ -116,7 +116,7 @@ class Evaluator:
                 'taskId': task_id
             }
             await self.socket.send(dumps(res))
-        elif msg['type'] == 'completeTask':
+        elif msg['type'] in ['completeTask', 'stopTask']:
             if self.finished_callback:
                 self.finished_callback()
         else:
