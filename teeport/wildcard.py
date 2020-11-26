@@ -19,6 +19,7 @@ class Wildcard:
         self.socket = None  # websocket client
         self.id = None  # websocket id
         self.task = None  # main async task
+        self.task_id = None  # the opt task id
         self.sub_task = None  # sub async task
     
     def status(self, width=16):
@@ -34,6 +35,8 @@ class Wildcard:
             print(f'{"main task": <{width}}: running')
         else:
             print(f'{"main task": <{width}}: not running')
+        if self.task_id:
+            print(f'{"task id": <{width}}: {self.task_id}')
         if self.sub_task:
             print(f'{"sub task": <{width}}: running')
         else:
@@ -57,7 +60,10 @@ class Wildcard:
             asyncio.ensure_future(self.socket.close())
         else:
             print('wildcard: already stopped')
-            
+        
+        # Reset the task id
+        self.task_id = None
+    
     async def wait_for_reply(self, task_name):
         self.sub_task = asyncio.get_event_loop().create_future()
         self.sub_task.name = task_name
@@ -85,6 +91,7 @@ class Wildcard:
         }
         await self.socket.send(dumps(new_task))
         task_id = await self.wait_for_reply('new_task')
+        self.task_id = task_id
         
 #         observe_task = {
 #             'type': 'observeTask',
@@ -114,6 +121,14 @@ class Wildcard:
             'id': task_id
         }
         await self.socket.send(dumps(delete_task))
+        
+    @make_sync
+    async def stop_task(self):
+        stop_task = {
+            'type': 'stopTask',
+            'id': self.task_id
+        }
+        await self.socket.send(dumps(stop_task))
     
     async def logic(self, msg):
         msg = loads(msg)
