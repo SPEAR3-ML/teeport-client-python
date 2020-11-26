@@ -15,6 +15,7 @@ setup(
     install_requires=[
         'numpy',
         'websockets',
+        'nest_asyncio',
         'anytree'
     ],
     classifiers=[
