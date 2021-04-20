@@ -344,7 +344,7 @@ class Teeport(NodeMixin):
                 return None
             else:
                 if client_type != 'optimizer':
-                    print(f'teeport: client {optimizer} is not an optimizer')
+                    print(f'teeport: client {optimize} is not an optimizer')
                     return None
                 
                 # init an optimizer, this one will not run
@@ -437,11 +437,42 @@ class Teeport(NodeMixin):
         else:
             return self._get_evaluate_local(evaluate, class_id, name, configs)
     
-    def use_processor(self, process=None, name=None):
+    def use_processor(self, process=None, configs=None):
         if process is None:
             pass
         elif type(process) == str:
-            pass
+            # do this link/unlink thing so that users don't need to care about it
+            if self.is_busy():
+                client = self.wildcard.check_client(process)
+            else:
+                self.link()
+                client = self.wildcard.check_client(process)
+                self.unlink()
+            try:
+                client_type = client['type']
+            except:
+                print(f'teeport: processor {process} does not exist')
+                return None
+            else:
+                if client_type != 'processor':
+                    print(f'teeport: client {process} is not a processor')
+                    return None
+                
+                def process_w(X):
+                    req = {
+                        'type': 'process',
+                        'data': X.tolist(),
+                        'processorId': client['id']
+                    }
+                    self.link()
+                    data = self.wildcard.request_process(req)
+                    self.unlink()
+                    
+                    Y = np.array(data)
+
+                    return Y
+
+                return process_w
         else:
             pass
             
@@ -756,7 +787,7 @@ class Teeport(NodeMixin):
             # run a private evaluator
             eval_connected = self._init_evaluator_private(evaluate, None, configs=configs_evaluator)
             if not eval_connected:
-                self.optimize.stop()
+                self.optimizer.stop()
                 print('teeport: initialize private evaluator failed')
                 return
             self.evaluator.start()

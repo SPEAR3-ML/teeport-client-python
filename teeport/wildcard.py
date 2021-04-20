@@ -80,6 +80,13 @@ class Wildcard:
         await self.socket.send(dumps(get_client))
         client = await self.wait_for_reply(f'check_client:{client_id}')
         return client
+
+    @make_sync
+    async def request_process(self, req):
+        await self.socket.send(dumps(req))
+        data = await self.wait_for_reply('process')
+
+        return data
     
     @make_sync
     async def init_task(self, optimizer_id, evaluator_id, configs=None):
@@ -165,6 +172,11 @@ class Wildcard:
             print('wildcard: optimization cancelled')
         elif msg['type'] == 'completeTask':
             print('wildcard: optimization completed')
+        elif msg['type'] == 'processed':
+            data = msg['data']
+            if self.sub_task and not self.sub_task.done():
+                if self.sub_task.name == 'process':
+                    self.sub_task.set_result(data)
         else:
             print(msg)
     
